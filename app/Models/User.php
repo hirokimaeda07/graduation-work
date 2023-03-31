@@ -42,11 +42,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-      // 🔽 追加
+      // 追加
       public function userTweets()
       {
         return $this->hasMany(Tweet::class);
       }
     
+    // project
+      public function userProjects()
+      {
+        return $this->hasMany(Project::class);
+      }
     
 }

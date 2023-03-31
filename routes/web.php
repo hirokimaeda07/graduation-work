@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TweetController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,12 @@ use App\Http\Controllers\TweetController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Route::resource('project', ProjectController::class);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/project/mypage', [ProjectController::class, 'mydata'])->name('project.mypage');
+    Route::resource('project', ProjectController::class);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/tweet/mypage', [TweetController::class, 'mydata'])->name('tweet.mypage');
@@ -21,7 +28,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome'); //topページはここで指定
 });
 
 Route::get('/dashboard', function () {

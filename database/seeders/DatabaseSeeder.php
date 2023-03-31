@@ -14,8 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //laravel-adminのseeder
+        //$this->call([AdminTablesSeeder::class,]);
+        
         // 🔽 この行のコメントから外す
         \App\Models\User::factory(10)->create();
+        
+         $this->call('ProjectsTableSeeder::class');
+        //\App\Models\Project::factory(5)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

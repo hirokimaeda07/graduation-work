@@ -1,10 +1,14 @@
-<!-- resources/views/layouts/navigation.blade.php -->
+<!-- resources/views/layouts/navigation.blade.php 
+ナビゲーションバー
+-->
 
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
   <!-- Primary Navigation Menu -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
+      
       <div class="flex">
+        
         <!-- Logo -->
         <div class="shrink-0 flex items-center">
           <a href="{{ route('dashboard') }}">
@@ -18,19 +22,41 @@
             {{ __('Dashboard') }}
           </x-nav-link>
         </div>
-        <!-- 🔽 一覧ページへのリンクを追加 -->
+        
+        <!-- project 一覧ページへのリンクを追加 -->
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link :href="route('project.index')" :active="request()->routeIs('project.index')">
+            {{ __('project Index') }}
+          </x-nav-link>
+        </div>
+        <!-- 作成ページへのリンクを追加 -->
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link :href="route('project.create')" :active="request()->routeIs('project.create')">
+            {{ __('project Create') }}
+          </x-nav-link>
+        </div>
+        <!-- マイページへのリンクを追加 -->
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link :href="route('project.mypage')" :active="request()->routeIs('project.mypage')">
+            {{ __('Project Mypage') }}
+          </x-nav-link>
+        </div>
+
+      
+        
+        <!-- 一覧ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
             {{ __('Index') }}
           </x-nav-link>
         </div>
-        <!-- 🔽 作成ページへのリンクを追加 -->
+        <!-- 作成ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('tweet.create')" :active="request()->routeIs('tweet.create')">
             {{ __('Create') }}
           </x-nav-link>
         </div>
-        <!-- 🔽 マイページへのリンクを追加 -->
+        <!-- マイページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('tweet.mypage')" :active="request()->routeIs('tweet.mypage')">
             {{ __('Mypage') }}
@@ -90,19 +116,41 @@
         {{ __('Dashboard') }}
       </x-responsive-nav-link>
     </div>
-    <!-- 🔽 一覧ページへのリンクを追加 -->
+    
+    <!-- project 一覧ページへのリンクを追加 -->
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link :href="route('project.index')" :active="request()->routeIs('project.index')">
+        {{ __('Project Index') }}
+      </x-responsive-nav-link>
+    </div>
+    <!-- 作成ページへのリンクを追加 -->
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link :href="route('project.create')" :active="request()->routeIs('project.create')">
+        {{ __('Project Create') }}
+      </x-responsive-nav-link>
+    </div>
+    <!-- マイページへのリンクを追加 -->
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link :href="route('project.mypage')" :active="request()->routeIs('project.mypage')">
+        {{ __('Project Mypage') }}
+      </x-responsive-nav-link>
+    </div>
+
+
+    
+    <!-- 一覧ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
         {{ __('Index') }}
       </x-responsive-nav-link>
     </div>
-    <!-- 🔽 作成ページへのリンクを追加 -->
+    <!-- 作成ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.create')" :active="request()->routeIs('tweet.create')">
         {{ __('Create') }}
       </x-responsive-nav-link>
     </div>
-    <!-- 🔽 マイページへのリンクを追加 -->
+    <!-- マイページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.mypage')" :active="request()->routeIs('tweet.mypage')">
         {{ __('Mypage') }}
