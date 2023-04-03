@@ -15,7 +15,12 @@ use App\Http\Controllers\ProjectController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-//Route::resource('project', ProjectController::class);
+//phpspredsheet用
+Route::get('/export', [ProjectController::class, 'export'])->name('export');
+Route::get('/', [ProjectController::class, 'index']);
+// Route::post('/download', [ProjectController::class, 'download']);
+// Route::get('/output', 'SpreadSheetController@export');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/project/mypage', [ProjectController::class, 'mydata'])->name('project.mypage');
@@ -28,7 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', function () {
-    return view('welcome'); //topページはここで指定
+    return view('hello'); //topページはここで指定
 });
 
 Route::get('/dashboard', function () {

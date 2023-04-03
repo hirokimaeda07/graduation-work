@@ -1,0 +1,11 @@
+{
+	"require": {
+    "phpoffice/phpspreadsheet": "^1.28"
+    },
+	"conig":{
+		"platform":{
+			"php":"8.2.3"
+		}
+	}
+}
+

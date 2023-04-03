@@ -2,7 +2,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Project 一覧') }}
+      {{ __('企画一覧') }}
     </h2>
   </x-slot>
 
@@ -13,7 +13,7 @@
           <table class="text-center w-full border-collapse">
             <thead>
               <tr>
-                <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">project</th>
+                <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">企画</th>
               </tr>
             </thead>
             
@@ -24,16 +24,18 @@
                   <!-- 詳細画面へのリンク -->
                   <a href="{{ route('project.show',$project->id) }}">               
                   <!-- User名表示 -->
-                    <p class="text-left text-gray-800 dark:text-gray-200">{{$project->user->name}}</p>
+                    <p class="text-left text-gray-800 dark:text-gray-200">{{ __('作成者　：') }}{{$project->user->name}}</p>
+                  <!-- 作成日時表示 -->
+                    <p class="text-left text-gray-800 dark:text-gray-200">{{ __('作成日時：') }}{{$project->created_at}}</p>
                   <!-- タイトル表示 -->
-                    <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{ $project->plan_title}}</h3>
+                    <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{ __('タイトル：') }}{{ $project->plan_title}}</h3>
                   </a>
                   
                   <div class="flex">
                     <!-- 条件分岐でログインしているユーザが投稿したprojectのみ編集ボタンと削除ボタンが表示される -->
                     @if ($project->user_id === Auth::user()->id)
                     
-                    <!-- 更新ボタン -->
+                    <!-- 修正ボタン -->
                     <form action="{{ route('project.edit',$project->id) }}" method="GET" class="text-left">
                       @csrf
                       <x-primary-button class="ml-3">

@@ -17,8 +17,7 @@ resources/views/tweet/show.blade.php
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800">
           <div class="mb-6">
             
-            <!-- 画像表示 -->
-            <!-- <x-images :images="$project->images"/> -->
+
            
             <div class="flex flex-col mb-4">
               <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">タイトル</p>
@@ -33,8 +32,7 @@ resources/views/tweet/show.blade.php
                 {{$project->plan_body}}
               </p>
             </div>
-            
-            <hr class="my-8 h-px border-0 bg-gray-300" />
+          
             
             <div class="flex flex-col mb-4">
               <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">プラン特徴（タイトル）</p>
@@ -76,15 +74,32 @@ resources/views/tweet/show.blade.php
                 </form>
              </div>
              
-            <!-- バックボタン -->
+            <!-- ボタン類 -->
             <div class="flex items-center justify-end mt-4">
-            <a href="{{ url()->previous() }}">
-              <x-secondary-button class="ml-3">
-                {{ __('Back') }}
-              </x-primary-button>
-            </a>
+              <!-- Excel出力ボタン -->
+              <a href="{{ route('export') }}">
+                <x-secondary-button class="ml-3">
+                  {{ __('Excel出力') }}
+                </x-primary-button>
+              </a>
+              <!-- バックボタン -->
+              <a href="{{ url()->previous() }}">
+                <x-secondary-button class="ml-3">
+                  {{ __('Back') }}
+                </x-primary-button>
+              </a>
+              
+              <!--参考：エクセル出力のコード
+              <a href="{{ route('export') }}">Excel出力</a>
+              -->
 
-             </div>        
+            </div>
+             
+
+
+ 
+
+             
           </div>
         </div>
       </div>

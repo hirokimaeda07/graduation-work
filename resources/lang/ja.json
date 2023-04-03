@@ -1,4 +1,14 @@
 {
+    "Dashboard": "ダッシュボード",
+    "Create New Project": "企画構築",
+    "PROJECT": "企画",
+    "Show Project Detail": "企画詳細",
+    "BACK": "戻る",
+    "Edit Project": "企画編集",
+    "Profile": "プロフィール",
+    "Log Out": "ログアウト",
+    "Log in": "ログイン",
+    
     "A fresh verification link has been sent to your email address.": "新しい確認リンクがメールアドレスに送信されました。",
     "All rights reserved.": "All rights reserved.",
     "Before proceeding, please check your email for a verification link.": "先に進む前に、確認リンクのためにあなたの電子メールを確認してください。",

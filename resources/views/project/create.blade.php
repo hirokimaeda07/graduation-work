@@ -47,7 +47,7 @@
             
             <hr class="my-8 h-px border-0 bg-gray-300" />
             
-            <!-- 
+            <!--
             <div class="flex flex-col mb-4">　
               <x-input-label for="total_required_time" :value="__('全行程所要時間')" />
               <x-text-input id="total_required_time" class="block mt-1 w-full" type="text" name="total_required_time" :value="old('total_required_time')" placeholder="〇時間〇分" required autofocus />
@@ -59,8 +59,9 @@
               <x-input-label for="total_required_time" :value="__('全行程所要時間')" />
               <x-text-input id="total_required_time" class="block mt-1 w-full" type="text" name="total_required_time" :value="old('total_required_time')" placeholder="〇時間〇分" required autofocus />
               <x-input-error :messages="$errors->get('total_required_time')" class="mt-2" />
-            </div> 
-            -->
+            </div>-->
+            
+            
 
 
             
@@ -73,12 +74,7 @@
             </div>
           </form>
           
-           <!--　画像アップロード  -->
-           
 
-           
-
-          
           
         </div>
       </div>

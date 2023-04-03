@@ -7,6 +7,11 @@ use DB;
 use App\Models\Project;
 use Auth;
 use App\Models\User;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class ProjectController extends Controller
 {
@@ -19,6 +24,7 @@ class ProjectController extends Controller
     {
         $projects = Project::getAllOrderByUpdated_at();
         return response()->view('project.index', compact('projects'));
+        return view('form');
     }
 
     /**
@@ -166,5 +172,81 @@ class ProjectController extends Controller
     //     return $this->file('images', []);
     // }
 
+
+    public function downloadExcel()
+    {
+        // Excelファイルに出力するデータを取得する
+        $data = $this->getDataForExcel();
+        // $plan_title = $request->input('plan_title');
+        // $plan_body = $request->input('plan_body');
+        
+        // Excelファイルを作成する
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray($data);
+        
+        // $worksheet = $spreadsheet->getActiveSheet();
+        // $worksheet->setCellValue('A1', 'プランタイトル');
+        // $worksheet->setCellValue('B1', 'プラン本文');
+        // $worksheet->setCellValue('A2', $plan_title);
+        // $worksheet->setCellValue('B2', $plan_body);
+
+        // Excelファイルをダウンロードする
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'form_data.xlsx';
+        $writer->save($filename);
+
+        return response()->download($filename)->deleteFileAfterSend();
+    }
     
+    // //phpspreadsheetからデータを出力する
+    public function export(Request $request)
+    {
+        $data = Project::all();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        
+        // データを縦方向に書きだす方法
+        //ヘッダーの設定
+        $header = ['作成日', 'タイトル', 'プラン説明', 'プラン特徴（タイトル）', 'プラン特徴（本文）'];
+        $sheet->fromArray($header, NULL, 'A1');
+
+        // データの設定
+        $rows = [];
+        foreach($data as $item) {
+            $rows[] = [$item->created_at, $item->plan_title, $item->plan_body, $item->plan_feature_title, $item->plan_feature_detail];
+        }
+        $sheet->fromArray($rows, NULL, 'A2');
+        
+        //データを横方向に書きだす方法
+        // $data = ['ID', '名前', 'メールアドレス', '登録日時'];
+        // $vertical = array_chunk($data, 1);
+        // // 第一引数：書き込むデータ配列
+        // // 第二引数：特定の値があったときに書き込みを拒否するか
+        // // 第三引数：書き込みを開始するセルの場所(デフォルトは「A1」) // 第四引数：型を厳しく見るか否か(デフォルトは「false」)falseだと「0」を書き込んだ場合空白で表示される
+        // $sheet->fromArray($vertical, NULL, 'B20', true);
+        // $x = 3;
+        
+        // //fromArrayで指定したセルからデータをまとめて書き込むことができます。
+        
+        // foreach ($projects as $project) {
+        // $y = 20;
+        // $sheet->setCellValueByColumnAndRow($x, $y, $project->id);
+        // $sheet->setCellValueByColumnAndRow($x, $y++, $project->plan_title);
+        // $sheet->setCellValueByColumnAndRow($x, $y + 2, $project->plan_body);
+        // $sheet->setCellValueByColumnAndRow($x, $y + 3, $project->created_at);
+        // $x++;
+        // }
+        
+
+        // ファイルの出力
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'exported_data.xlsx';
+        $writer->save($filename);
+
+        // ファイルのダウンロード
+        return response()->download($filename);
+    }
 }
