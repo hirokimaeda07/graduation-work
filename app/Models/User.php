@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -53,5 +54,20 @@ class User extends Authenticatable
       {
         return $this->hasMany(Project::class);
       }
+    
+    //パスワードリセット 
+    public function sendPasswordResetNotification($token)
+    {
+        $url = url("reset-password/${token}");
+        $this->notify(new ResetPasswordNotification($url));
+    }  
+    
+    //user削除に伴う処理
+    protected $table = 'users';
+    // ユーザーは複数のプロジェクトを持つ
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
     
 }

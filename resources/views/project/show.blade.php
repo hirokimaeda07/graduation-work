@@ -76,6 +76,7 @@ resources/views/tweet/show.blade.php
              
             <!-- ボタン類 -->
             <div class="flex items-center justify-end mt-4">
+              
               <!-- Excel出力ボタン -->
               <a href="{{ route('export') }}">
                 <x-secondary-button class="ml-3">

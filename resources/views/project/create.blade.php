@@ -9,12 +9,13 @@
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:w-8/12 md:w-1/2 lg:w-5/12">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 ">
           @include('common.errors')
           
+         
           <form class="mb-6" action="{{ route('project.store') }}" method="POST">
             @csrf　<!-- @csrfはセキュリティ対策．フォームからデータを送信するときには必ず記述 -->
-            
             
             <div class="flex flex-col mb-4">
               <x-input-label for="plan_title" :value="__('プランタイトル')" />
@@ -38,6 +39,7 @@
               <x-input-error :messages="$errors->get('plan_feature_title')" class="mt-2" />
               <p class="mt-1 text-sm text-gray-500">参考情報を記載</p>
             </div>
+            
             <div class="flex flex-col mb-4">
               <x-input-label for="plan_feature_detail" :value="__('プラン特徴（本文）')" />
               <textarea id="plan_feature_detail" rows="4" type="text" name="plan_feature_detail" placeholder="500文字" :value="old('plan_feature_detail')" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required autofocus></textarea>
@@ -72,12 +74,11 @@
                 {{ __('保存') }}
               </x-primary-button>
             </div>
+            
           </form>
-          
-
-          
         </div>
       </div>
     </div>
   </div>
+  
 </x-app-layout>

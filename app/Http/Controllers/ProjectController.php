@@ -22,6 +22,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
+
         $projects = Project::getAllOrderByUpdated_at();
         return response()->view('project.index', compact('projects'));
         return view('form');
@@ -73,7 +74,8 @@ class ProjectController extends Controller
 
       
       // ルーティング「project.index」にリクエスト送信（project一覧ページに移動）
-      return redirect()->route('project.index');
+      // project.index ⇒　project.mypage　に変更
+      return redirect()->route('project.mypage');
     }
 
     /**
@@ -127,7 +129,8 @@ class ProjectController extends Controller
           }
           //データ更新処理
           $result = Project::find($id)->update($request->all());
-          return redirect()->route('project.index');
+          // project.index（全てユーザー一覧） ⇒　project.mypage　に変更
+          return redirect()->route('project.mypage');
     }
 
     /**
@@ -139,7 +142,8 @@ class ProjectController extends Controller
     public function destroy($id)
     {
       $result = Project::find($id)->delete();
-      return redirect()->route('project.index');
+      // project.index（全てユーザー一覧） ⇒　project.mypage　に変更
+      return redirect()->route('project.mypage');
     }
     
     
@@ -175,6 +179,7 @@ class ProjectController extends Controller
 
     public function downloadExcel()
     {
+        
         // Excelファイルに出力するデータを取得する
         $data = $this->getDataForExcel();
         // $plan_title = $request->input('plan_title');
@@ -199,10 +204,12 @@ class ProjectController extends Controller
         return response()->download($filename)->deleteFileAfterSend();
     }
     
-    // //phpspreadsheetからデータを出力する
+    //phpspreadsheetからデータを出力する
     public function export(Request $request)
     {
-        $data = Project::all();
+        //$data = Project::all(); //全てのユーザーデータを取得する
+        $user = Auth::user(); // 現在認証されているユーザーを取得する
+        $data = $user->projects; // 現在認証されているユーザーが所有する Project モデルを取得する
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
