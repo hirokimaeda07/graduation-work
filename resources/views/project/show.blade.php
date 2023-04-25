@@ -77,6 +77,13 @@ resources/views/tweet/show.blade.php
             <!-- ボタン類 -->
             <div class="flex items-center justify-end mt-4">
               
+              <!-- メール送付ボタン -->
+              <a href="{{ route('form') }}">
+                <x-secondary-button class="ml-3">
+                  {{ __('OTAへデータ送付') }}
+                </x-primary-button>
+              </a>
+              
               <!-- Excel出力ボタン -->
               <a href="{{ route('export') }}">
                 <x-secondary-button class="ml-3">
@@ -95,11 +102,14 @@ resources/views/tweet/show.blade.php
               -->
 
             </div>
-             
-
-
- 
-
+            
+            <!-- 送信完了メッセージを表示 -->
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
              
           </div>
         </div>

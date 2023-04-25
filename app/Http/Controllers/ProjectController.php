@@ -12,6 +12,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ExcelAttachment;
+use Illuminate\Mail\Mailable;
 
 class ProjectController extends Controller
 {
@@ -129,7 +132,7 @@ class ProjectController extends Controller
           }
           //データ更新処理
           $result = Project::find($id)->update($request->all());
-          // project.index（全てユーザー一覧） ⇒　project.mypage　に変更
+          // project.index（全てユーザー一覧を取得できる） ⇒　project.mypage（アクティブユーザー情報のみ取得）に変更
           return redirect()->route('project.mypage');
     }
 
@@ -215,7 +218,7 @@ class ProjectController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         
-        // データを縦方向に書きだす方法
+        // データを縦方向に書きだす方法.タイトルは横方向。
         //ヘッダーの設定
         $header = ['作成日', 'タイトル', 'プラン説明', 'プラン特徴（タイトル）', 'プラン特徴（本文）'];
         $sheet->fromArray($header, NULL, 'A1');
@@ -256,4 +259,72 @@ class ProjectController extends Controller
         // ファイルのダウンロード
         return response()->download($filename);
     }
+    
+    // public function submit(Request $request)
+    // {
+    //     // バリデーション
+    //     $request->validate([
+    //         'plan_title' => 'required | max:75',
+    //         'plan_body' => 'required | max:1250',
+    //         'plan_feature_title' => 'required | max:75',
+    //         'plan_feature_detail' => 'required | max:500',
+            
+    //     ]);
+        
+    //     $user = Auth::user(); // 現在認証されているユーザーを取得する
+    //     $data = $user->projects; // 現在認証されているユーザーが所有する Project モデルを取得する
+        
+        
+        
+    // }
+    
+    //     public function sendEmail(Request $request)
+    // {
+    //     // メールアドレスを格納する配列を初期化
+    //     $to = [];
+
+    //     // リクエストから送信先のメールアドレスを取得
+    //     if ($request->has('email_list')) {
+    //         $to = $request->input('email_list');
+    //     }
+
+    //     // Excelファイルを作成して保存
+    //      // Spreadsheetオブジェクトを作成
+    //     $spreadsheet = new Spreadsheet();
+        
+    //     // シートの設定
+    //     $sheet = $spreadsheet->getActiveSheet();
+    //     $sheet->setCellValue('A1', 'Hello World!');
+        
+    //     // Excelファイルを保存
+    //     $writer = new Xlsx($spreadsheet);
+        
+    //     // ファイルの保存先パスを指定する
+    //     $filePath = public_path('path/to/file.xlsx'); // publicディレクトリ以下に保存する場合
+        
+    //     // ディレクトリが存在しない場合は作成する
+    //     if (!file_exists(dirname($filePath))) {
+    //         mkdir(dirname($filePath), 0777, true);
+    //     }
+        
+    //     // ファイルを保存する
+    //     $writer->save($filePath);
+
+    //     // ExcelAttachmentクラスのインスタンスを作成
+    //     $mail = new ExcelAttachment($filePath);
+
+    //     // 送信先のメールアドレスを設定
+    //     $mail->to($to);
+
+    //     // メールを送信
+    //     Mail::send('project.show', $data, function($message) use ($to, $subject, $filePath) {
+    //     $message->to($to)
+    //         ->subject($subject)
+    //         ->attach($filePath);
+    //     });
+
+    //     // 送信完了メッセージを表示
+    //     return redirect()->back()->with('success', 'メールを送信しました。');
+    // }
+    
 }

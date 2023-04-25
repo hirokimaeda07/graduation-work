@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,13 @@ use App\Http\Controllers\Auth\NewPasswordController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// OTA申込フォーム
+Route::get('/form', [FormController::class, 'index'])->name('form');
+Route::get('/form/complete', [FormController::class, 'complete'])->name('form.complete');
+// postされた際に送信処理を実行するようにする
+Route::post('/form', [FormController::class, 'sendMail']);
+
 //パスワードリセット用のルート
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -34,6 +42,9 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });
+
+//otaメール送付用
+//Route::get('/send-email', [ProjectController::class, 'sendEmail'])->name('sendEmail');
 
 //phpspredsheet用
 Route::get('/export', [ProjectController::class, 'export'])->name('export');
